@@ -59,56 +59,75 @@ function App() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
-      <h1 className="text-4xl font-bold mb-8">AI Text Assistant</h1>
+    <div className="flex flex-col bg-gradient-to-br from-slate-50 to-blue-50 items-center justify-center min-h-screen p-4">
+      <div className="mb-8 text-center">
+        <h1 className="text-5xl font-bold text-slate-800 mb-2">AI Text Assistant</h1>
+        <p className="text-slate-600">Improve your writing with AI-powered suggestions</p>
+      </div>
 
-      <div className="w-full max-w-2xl">
+      <div className="w-full max-w-3xl">
         <div className="mb-6">
           <textarea
             id="text-field"
-            className="w-full h-48 border border-gray-300 rounded-lg p-4 resize-none outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
-            placeholder="Enter or paste text here..."
+            className="w-full h-48 border-2 border-slate-300 rounded-xl p-4 resize-none outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-200 bg-white shadow-sm"
+            placeholder="Enter or paste your text here..."
             value={input}
             onChange={(e) => setInput(e.target.value)}
           ></textarea>
         </div>
 
-        <div className="flex gap-4 mb-6">
+        <div className="flex gap-3 mb-6">
           <button
-            className="flex-1 bg-sky-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-sky-600 transition disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex-1 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:brightness-110"
             onClick={() => generateContent('checker')}
             disabled={loading}
           >
             {loading && activeMode === 'checker' ? 'Checking...' : 'Spell Check'}
           </button>
           <button
-            className="flex-1 bg-purple-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-purple-600 transition disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex-1 bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:brightness-110"
             onClick={() => generateContent('improver')}
             disabled={loading}
           >
             {loading && activeMode === 'improver' ? 'Analyzing...' : 'AI Text Improvement'}
           </button>
-          <button className='reset bg-gray-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-gray-600 transition' onClick={() => { setInput(''); setOutput(''); setError(''); setActiveMode(null); }}>
+          <button
+            className="bg-slate-500 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 shadow-md hover:brightness-110"
+            onClick={() => {
+              setInput('');
+              setOutput('');
+              setError('');
+              setActiveMode(null);
+            }}
+          >
             Reset
           </button>
         </div>
 
         {error && (
-          <div className="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
-            {error}
+          <div className="mb-6 p-4 bg-red-50 border-2 border-red-300 text-red-700 rounded-xl shadow-sm">
+            <div className="flex items-start">
+              <svg className="w-5 h-5 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+              </svg>
+              <span>{error}</span>
+            </div>
           </div>
         )}
 
         {output && (
-          <div className="p-6 border border-gray-300 rounded-lg bg-white shadow-sm">
-            <h3 className="text-xl font-semibold mb-3 text-gray-800">
-              {activeMode === 'checker' ? 'Spelling & Grammar Check:' : 'Improvement Recommendations:'}
+          <div className="p-6 border-2 border-slate-200 rounded-xl bg-white shadow-lg">
+            <h3 className="text-2xl font-semibold mb-4 text-slate-800 flex items-center">
+              <svg className="w-6 h-6 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              {activeMode === 'checker' ? 'Spelling & Grammar Check' : 'Improvement Recommendations'}
             </h3>
-            <div className="text-gray-700 whitespace-pre-wrap">{output}</div>
+            <div className="text-slate-700 whitespace-pre-wrap leading-relaxed">{output}</div>
           </div>
         )}
       </div>
-    </div >
+    </div>
   );
 }
 
